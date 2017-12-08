@@ -8,7 +8,7 @@
 
 # Excercise 2:
 
-Combinators:
+**Combinators:**
 
 1. Yes
 2. No, `𝑧` is a free variable
@@ -16,7 +16,7 @@ Combinators:
 4. Yes
 5. No, `𝑧` is a free variable
 
-Normal form or Divergence?
+**Normal form or Divergence?**
 
 1. Normal form: 
 
@@ -28,7 +28,7 @@ Normal form or Divergence?
 𝑧𝑧𝑧
 ```
 
-Beta reduce:
+**Beta reduce:**
 
 1.
 

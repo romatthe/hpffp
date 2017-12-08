@@ -168,3 +168,21 @@ y = z + 8
 x = y ^ 2
 let waxOn = x * 5
 ```
+
+1.
+   * `10 + waxOn` --> 1135
+   * `(+10) waxOn` --> 1135
+   * `(-) 15 waxOn` --> -1110 
+   * `(-) waxOn 15` --> 1110
+
+3. `triple waxOn` --> 3375
+
+4.
+
+```haskell
+waxOn = x * 5
+    where
+        z = 7
+        y = z + 8
+        x = y ^ 2
+```

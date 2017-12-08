@@ -78,3 +78,30 @@ Prelude> (2^) $ 2 + 2
 ```
 
 In this example, because `$` takes lower precedence, `2 + 2` (aka, everything on the right of `$`) is evaluated first.
+
+## Sectioning
+
+```haskell
+Prelude> (+1) 2
+3
+```
+
+This is known as sectioning and allows you to pass around partially applied functions. The order here doesn't matter here because `(+)` is commutative.
+
+Let's look at a partially applied `(/)`
+
+```haskell
+Prelude> (1/) 2
+0.5
+-- Equivalent to (\x -> 1 / x) 2
+Prelude> (/1) 2
+2.0
+-- Equivalent to (\x -> x / 1) 2
+```
+
+This won't work with `(-)`
+
+## Let and Where
+
+* `let` : introduces an expression
+* `where` : a declaration bound around the syntactic contstruct it surrouds
