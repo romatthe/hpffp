@@ -112,7 +112,7 @@ Beta reduce:
 (𝜆𝑦.𝜆𝑧1(𝜆𝑥.𝑧)𝑧1(𝑦𝑧1))(𝜆𝑥.𝑎)        \\ Rename leftmost z to z1
 [𝑦 ∶= (𝜆𝑥.𝑎)]
 (𝜆𝑧1(𝜆𝑥.𝑧)(𝑧1)((𝜆𝑥.𝑎)𝑧1))
-(𝜆𝑧1.𝑧((𝜆𝑥.𝑎)(𝑧1)))              \\ Our le most, outermost lambda has no remaining arguments to be applied so we now examine the terms nested within to see if they are in normal form. 
+(𝜆𝑧1.𝑧((𝜆𝑥.𝑎)(𝑧1)))              \\ Our leftmost, outermost lambda has no remaining arguments to be applied so we now examine the terms nested within to see if they are in normal form. 
 [𝑧1 ∶= (𝜆𝑥.𝑧)]
 (𝜆𝑧1.𝑧((𝜆𝑥.𝑎)(𝑧1)))
 (𝜆𝑧1.𝑧𝑎)
