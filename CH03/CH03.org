@@ -1,7 +1,8 @@
 #+TITLE: Chapter 3: Strings
+#+OPTIONS: toc:nil
 
 * Notes
-
+  
 ** GHCi commands:
 =:type= or =:t= can be used to get a type of a value, expression, or function. For example:
 #+BEGIN_SRC 
@@ -14,7 +15,7 @@ words :: String -> [String]
 #+END_SRC
 
 ** Strings Vs Text
-=String= is a very simple type. It is merely an alias for a linked list of =Char=s, i.e. =[Char]=
+=String= is a very simple type. It is merely an alias for a linked list of =Char=\s, i.e. =[Char]=
 
 #+INCLUDE: "~/Source/hpffp/CH03/example.hs" src haskell
 
