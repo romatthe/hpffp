@@ -35,7 +35,6 @@ hello = concat ["Hello", " ", "world!"]
 #+END_SRC
 
 
-
 ** A note about =IO=
 
 The =IO= type is a very special type implemented in Haskell for the specific purpose of describing I/O "effects", i.e. something that affects, or is affected by, the state of the outside world.
@@ -82,7 +81,7 @@ If we expend our example a little bit though, we can have a look at what a it me
   module TopOrLocal where
 
   topFunction :: Integer -> Integer
-  function x = x + aNumber + anotherNumber
+  topFunction x = x + aNumber + anotherNumber
     where aNumber = 1                        -- Defined at the local level
           anotherNumber = 10                 -- Defined at the local level
 #+END_SRC
@@ -113,4 +112,4 @@ There is a simple solution to this one, we learned it in the previous chapter:
 
 *** 4. Is everything we need in scope? II
 
-Yes, see above :smile:
+Yes, see above.
