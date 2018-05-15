@@ -138,19 +138,17 @@ Yes, see above.
 ** Exercise 2: Syntax errors
 
    1. Won't compile:
-   =++= is not a prefix operator, but an infix ones. There are two ways to solve this:
-   #+BEGIN_SRC haskell
-   (++) [1, 2, 3] [4, 5, 6]
-   #+END_SRC
-   or
-   #+BEGIN_SRC haskell
-   [1, 2, 3] ++ [4, 5, 6]
-   #+END_SRC
-
+      =++= is not a prefix operator, but an infix one. There are two ways to solve this:
+      #+BEGIN_SRC haskell
+      (++) [1, 2, 3] [4, 5, 6]
+      #+END_SRC
+      or
+      #+BEGIN_SRC haskell
+      [1, 2, 3] ++ [4, 5, 6]
+      #+END_SRC
    2. Won't compile: 
-   The single-quote syntax is not valid for declaring Strings in Haskell. Single-quotes are used for Chars. To fix it we need to do:
-   #+BEGIN_SRC haskell
-   "<3" ++ " Haskell"
-   #+END_SRC
-
+      The single-quote syntax is not valid for declaring Strings in Haskell. Single-quotes are used for Chars. To fix it we need to do:
+      #+BEGIN_SRC haskell
+      "<3" ++ " Haskell"
+      #+END_SRC
    3. Will compile just fine
