@@ -269,7 +269,7 @@ many of them are considered *unsafe*! We should always be careful when using the
 
 *** Write a function that does the same as above
 We alread did this more or less in the previous exercise, but just for completions sake:
-#+INCLUDE: "~/Source/hpffp/src/CH03/strings.hs"
+#+INCLUDE: "~/Source/hpffp/src/CH03/strings.hs" src haskell
 
 *** Write a functions
 #+BEGIN_SRC haskell
@@ -284,4 +284,4 @@ letterIndex x = "Curry is awesome!" !! x
 #+END_SRC
 
 *** Reverse function
-#+INCLUDE: "~/Source/hpffp/src/CH03/rvrs.hs" 
+#+INCLUDE: "~/Source/hpffp/src/CH03/rvrs.hs" src haskell 
