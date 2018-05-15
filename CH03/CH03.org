@@ -100,7 +100,7 @@ In this type signature, =a= represents a type that we don't know yet. There are 
 The only restriction is that the arguments and return value are all of type =a=. The type of a will be inferred and known at some point.
 
 Remember that String is of type =[Char]=? This is why we can apply ="Hello" ++ " world"=. In that case, we can imagine the function signature of =concat= to be like =[Char] -> [Char] -> [Char]=.
-Similarly, we can do something like =[1, 2, 3] ++ [4, 5, 6]=, which would be something like =[Integral] -> [Integral] -> [Integral]= (This is not correct, but let's just with that for now).
+Similarly, we can do something like =[1, 2, 3] ++ [4, 5, 6]=, which would be something like =[Integral] -> [Integral] -> [Integral]= (This is not correct, but let's just roll with that for now).
 
 Of course, we cannot do something like =[1, 2, 3] ++ "I am a String!"= because that would violate that both arguments have to be of type =a=.
 
@@ -135,22 +135,22 @@ There is a simple solution to this one, we learned it in the previous chapter:
 
 Yes, see above.
 
-** Exercise 2: Syntex errors
+** Exercise 2: Syntax errors
 
-1. *Won't compie*:
-=++= is not a prefix operator, but an infix ones. There are two ways to solve this.
-#+BEGIN_SRC haskell
-(++) [1, 2, 3] [4, 5, 6]
-#+END_SRC 
-or
-#+BEGIN_SRC haskell
-[1, 2, 3] ++ [4, 5, 6]
-#+END_SRC
+   1. Won't compile:
+   =++= is not a prefix operator, but an infix ones. There are two ways to solve this:
+   #+BEGIN_SRC haskell
+   (++) [1, 2, 3] [4, 5, 6]
+   #+END_SRC
+   or
+   #+BEGIN_SRC haskell
+   [1, 2, 3] ++ [4, 5, 6]
+   #+END_SRC
 
-2. Won't compile: 
-The single-quote syntax is not valid for declaring Strings in Haskell. Single-quotes are used for Chars. To fix it we need to do:
-#+BEGIN_SRC haskell
-"<3" ++ " Haskell"
-#+END_SRC
+   2. Won't compile: 
+   The single-quote syntax is not valid for declaring Strings in Haskell. Single-quotes are used for Chars. To fix it we need to do:
+   #+BEGIN_SRC haskell
+   "<3" ++ " Haskell"
+   #+END_SRC
 
-3. Will compile just fine
+   3. Will compile just fine
