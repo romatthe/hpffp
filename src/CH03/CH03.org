@@ -285,3 +285,6 @@ letterIndex x = "Curry is awesome!" !! x
 
 *** Reverse function
 #+INCLUDE: "~/Source/hpffp/src/CH03/rvrs.hs" src haskell 
+
+*** Reverse function as module
+#+INCLUDE: "~/Source/hpffp/src/CH03/rvrs2.hs" src haskell
