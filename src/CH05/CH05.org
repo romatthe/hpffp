@@ -162,7 +162,54 @@ False
 
 ** Polymorphism 
 
-*Polymorphic* means "made of many forms".
+*Polymorphic* means "made of many forms". Polymorphic type variables allow us to write functions that act on different types whithout rewriting
+the entire function again.
+
+Haskell support two different types of polymorphism:
+- Paramatric polymorphism :: Implemented through type variables that are fully pollymorphic
+- Constrained polymorphism :: Implemented through typeclasses
+
+We have a simple way of working around certain type constraints. For example, in the =length= function we wrote previously, the following is impossible:
+#+BEGIN_SRC haskell
+Prelude> 6 / length [1, 2, 3]
+
+No instance for (Fractional Int) arising
+  from a use of ‘/’
+
+In the expression: 6 / length [1, 2, 3]
+In an equation for ‘it’: it = 6 / length [1, 2, 3]
+#+END_SRC
+
+=length= just isn't polymorphic enough. Let's make a function called =fromIntegral= to work around that:
+#+BEGIN_SRC haskell
+Prelude> :t fromIntegral
+fromIntegral :: (Num b, Integral a) => a -> b
+#+END_SRC
+
+If we use this function:
+#+BEGIN_SRC haskell
+6 / fromIntegral (length [1, 2, 3])
+2.0
+#+END_SRC
+
+** Type Inference
+
+Haskell can determine the types of expressions for us through a process called *type inference*. Haskell uses an expanded version of the so-called /Damas-Hindley-
+Milner type system/. It will always infer the most polymorphic type possible. For example:
+#+BEGIN_SRC haskell
+Prelude> let myGreet x = x ++ " Julie"
+Prelude> myGreet "hello"
+"hello Julie"
+Prelude> :type myGreet
+myGreet :: [Char] -> [Char]
+#+END_SRC 
+
+But if we were to change it to:
+#+BEGIN_SRC haskell
+Prelude> let myGreet x y = x ++ y
+Prelude> :type myGreet
+myGreet :: [a] -> [a] -> [a]
+#+END_SRC
 
 * Exercises
 ** Exercise 1: Type Matching
@@ -192,7 +239,7 @@ False
 
    5. Resulting type for:
       Given: ~jackal :: (Ord a, Eq b) => a -> b -> a~
-      Then: ~jackal "keyboard" "has the word jackal in it"~ :: [Char]
+      Then: ~jackal "keyboard" "has the word jackal in it" :: [Char]~
 
    6. Resulting type for:
       Given: ~jackal :: (Ord a, Eq b) => a -> b -> a~
@@ -209,3 +256,41 @@ False
    9. Resulting type for:
       Given: ~kessel :: (Ord a, Num b) => a -> b -> a~
       Then: ~kessel (1 :: Integer) 2 :: Integer~
+
+** Exercise 3: Parametricity
+
+   1. This is indeed impossible. If, for example, we write a function along these lines:
+      #+BEGIN_SRC haskell
+      id' :: a -> a
+      id' x = x + 1 
+      #+END_SRC
+      The compiler will complain that =No instance for (Num a) arising from a use of ‘+’=. In other words, =a= is being constrained.
+
+   2. The two variants of the function with this type signature are as follows:
+      #+BEGIN_SRC haskell
+      foo :: a -> a -> a
+      foo x y = x
+      #+END_SRC
+      or
+      #+BEGIN_SRC haskell
+      foo' :: a -> a -> a
+      foo' x y = y
+      #+END_SRC
+
+   3. Only 1 single implementation:
+      #+BEGIN_SRC haskell
+      bar :: a -> b -> b
+      bar x y = y
+      #+END_SRC
+
+** Exercise 4: Apply Yourself:
+
+   1. Applying ~myConcat x = x ++ " yo"~ with type signature ~(++) :: [a] -> [a] -> [a]~ will result in ~myConcat :: [Char] -> [Char]~
+   
+   2. Applying ~myMult x = (x / 3) * 5~ with type signature ~(*) :: Num a => a -> a -> a~ will result in ~myMult :: Fractional a => a -> a~
+   
+   3. Applying ~myTake x = take x "hey you"~ with type signature ~take :: Int -> [a] -> [a]~ will result in ~myTake :: Int -> [Char]~
+
+   4. Applying ~myCom x = x > (length [1..10])~ with type signature ~(>) :: Ord a => a -> a -> Bool~ will result in ~myCom :: Int -> Bool~
+
+   5. Applying ~myAlph x = x < 'z'~ with type signature ~(<) :: Ord a => a -> a -> Bool~ will result in ~myAlph :: Char -> Bool~
