@@ -26,7 +26,7 @@ Haskell offers different numeric types:
 
 -   **`Int`:** Fixed-precision integer. Has a fixed min and max range.
 -   **`Integer`:** Also an integer type, but this one supports arbitrarily large of small numbers
--   **=Float:** Single precision floating point number. Arithmetic operations can behave unexpectedly. Do not use in business applications.
+-   **`Float`:** Single precision floating point number. Arithmetic operations can behave unexpectedly. Do not use in business applications.
 -   **`Double`:** Double-precision floating point number. Twice as many bits to describe numbers than `Float`
 -   **`Rational`:** Represents a ratio of two numbers, e.g. `1 / 2`. It is arbitrarily precise but less efficient than Scientic.
 -   **`Scientific`:** Space efficient and *almost* arbitrarily efficient. Uses scientific notation. The coefficient is an `Integer` and the exponent an `Int`.
@@ -77,15 +77,15 @@ Becase if we inspect thes `[]` and `Char` types, we can see they both have insta
 ```haskell
 Prelude GHC.Int Data.Char> :info []
 data [] a = [] | a : [a] 	-- Defined in ‘GHC.Types’
-instance Eq a => Eq [a] -- Defined in ‘GHC.Classes’
+instance Eq a => Eq [a]   -- Defined in ‘GHC.Classes’
 instance Ord a => Ord [a] -- Defined in ‘GHC.Classes’
 ```
 
 ```haskell
 Prelude GHC.Int Data.Char> :info Char
 data Char = GHC.Types.C# GHC.Prim.Char# 	-- Defined in ‘GHC.Types’
-instance Eq Char -- Defined in ‘GHC.Classes’
-instance Ord Char -- Defined in ‘GHC.Classes’
+instance Eq Char                          -- Defined in ‘GHC.Classes’
+instance Ord Char                         -- Defined in ‘GHC.Classes’
 ```
 
 If we were to define our own datatype, we unfortunately can't start comparing. The following will yield and error:
@@ -95,14 +95,14 @@ Prelude> data Mood = G | B deriving Show
 Prelude> [G, B] > [B, G]
 ```
 
-<p class="verse">
-<interactive>:28:14:<br />
-&#xa0;&#xa0;&#xa0;&#xa0;No instance for (Ord Mood) arising<br />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;from a use of ‘>’<br />
-&#xa0;&#xa0;&#xa0;&#xa0;In the expression: [G, B] > [B, G]<br />
-&#xa0;&#xa0;&#xa0;&#xa0;In an equation for ‘it’:<br />
-&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;it = [G, B] > [B, G]<br />
-</p>
+```
+<interactive>:28:14:
+    No instance for (Ord Mood) arising
+        from a use of ‘>’
+    In the expression: [G, B] > [B, G]
+    In an equation for ‘it’:
+        it = [G, B] > [B, G]
+```
 
 ## Conditionals with if-then-else
 
@@ -250,11 +250,11 @@ Protip: keep tuples to a reasonable size.
 5.  The type of this expression is `Bool`, and the result is `True`.
 6.  The type of this expression is `Bool`, and the result is `False`.
 7.  Results:
-    -   **`length allAwesome =` 2=:** Works, result is `True`.
+    -   **`length allAwesome == 2`:** Works, result is `True`.
     -   **`length [1, 'a', 3, 'b']`:** Doesn't work, lists consist out of values of a single type.
     -   **`length allAwesome + length awesome`:** Works, result is `5`.
-    -   **`(8 =` 8) && ('b' < 'a')=:** Works, result is `False`.
-    -   **`(8 =` 8) && 9= :: Doesn't work, type signature of `&&` is =(&&):** Bool -> Bool -> Bool=.
+    -   **`(8 == 8) && ('b' < 'a')`:** Works, result is `False`.
+    -   **`(8 == 8) && 9` :: Doesn't work, type signature of `&&` is =(&&):** Bool -> Bool -> Bool=.
 8.  Palindrome function:
     
     ```haskell
