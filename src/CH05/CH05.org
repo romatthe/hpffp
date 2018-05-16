@@ -1,5 +1,5 @@
 #+TITLE: Chapter 5: Types
-#+OPTIONS: toc:nil
+#+OPTIONS: toc:nil \n:t
 
 * Notes
 ** Why Types? 
@@ -127,8 +127,7 @@ addStuff :: Integer -> (Integer -> Integer)
 
 So as you can see, passing a single argument of type =Integer= to this function return a function of type ~Integer -> Integer~.
 
-There's also *sectioning*: a specific form of partial application of infix operators, which has a special syntax and allows us to choose whether
-the argument you're partially applying the operator to is the first or second argument.
+There's also *sectioning*: a specific form of partial application of infix operators, which has a special syntax and allows us to choose whether the argument you're partially applying the operator to is the first or second argument.
 #+BEGIN_SRC haskell
 Prelude> let x = 5
 Prelude> let y = (2^)
@@ -174,7 +173,6 @@ False
    5. =(<)= -> ~(<) :: Ord a => a -> a -> Bool~
 
 ** Exercise 2: Type Arguments
-   #+OPTIONS: \n:t
    1. Resulting type for:
       Given: ~f :: a -> a -> a -> a~
       And: ~x :: Char~
