@@ -211,15 +211,15 @@ Protip: keep tuples to a reasonable size.
 *** Solve!
    1. =length= function type signature: =length :: [a] -> Int=
    2. Results:
-      - =length [1, 2, 3, 4, 5]= -> 5
-      - =length [(1, 2), (2, 3), (3, 4)]= -> 3
-      - =length allAwesome= -> 10
-      - =length (concat allAwesome)= -> 11
+      - ~length [1, 2, 3, 4, 5]~ -> 5
+      - ~length [(1, 2), (2, 3), (3, 4)]~ -> 3
+      - ~length allAwesome~ -> 10
+      - ~length (concat allAwesome)~ -> 11
    3. Currently, we return an =Int= from the =length= functional, but =/= takes two =Fractional= values. So the second expression won't work.
    4. This should fix it: 
-      =6 `div` length [1, 2, 3]=
+      ~6 `div` length [1, 2, 3]~
       or
-      =div 6 (length [1, 2, 3])=
+      ~div 6 (length [1, 2, 3])~
    5. The type of this expression is =Bool=, and the result is =True=.
    6. The type of this expression is =Bool=, and the result is =False=.
    7. Results:
@@ -227,7 +227,7 @@ Protip: keep tuples to a reasonable size.
       - ~length [1, 'a', 3, 'b']~ :: Doesn't work, lists consist out of values of a single type.
       - ~length allAwesome + length awesome~ :: Works, result is =5=.
       - ~(8 == 8) && ('b' < 'a')~ :: Works, result is =False=.
-      - ~(8 == 8) && 9~ :: Doesn't work, type signature of =&&= is =(&&) :: Bool -> Bool -> Bool=.
+      - ~(8 == 8) && 9~ :: Doesn't work, type signature of ~&&~ is ~(&&) :: Bool -> Bool -> Bool~.
    8. Palindrome function:
       #+BEGIN_SRC haskell
       isPalindrome :: (Eq a) => [a] -> Bool
