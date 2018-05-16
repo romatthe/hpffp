@@ -254,7 +254,7 @@ Protip: keep tuples to a reasonable size.
     -   **`length [1, 'a', 3, 'b']`:** Doesn't work, lists consist out of values of a single type.
     -   **`length allAwesome + length awesome`:** Works, result is `5`.
     -   **`(8 == 8) && ('b' < 'a')`:** Works, result is `False`.
-    -   **`(8 == 8) && 9` :: Doesn't work, type signature of `&&` is =(&&):** Bool -> Bool -> Bool=.
+    -   **`(8 == 8) && 9` :: Doesn't work, type signature of `&&` is ~(&&):** Bool -> Bool -> Bool~.
 8.  Palindrome function:
     
     ```haskell
