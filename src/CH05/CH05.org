@@ -289,7 +289,7 @@ myGreet :: [a] -> [a] -> [a]
       With type signature ~(++) :: [a] -> [a] -> [a]~ 
       Will result in:
       a) ~myConcat :: [Char] -> [Char]~
-      b) ~(++)~ :: [Char] -> [Char] -> [Char]
+      b) ~(++) :: [Char] -> [Char] -> [Char]~
    
    2. Applying ~myMult x = (x / 3) * 5~ 
       With type signature ~(*) :: Num a => a -> a -> a~ 
@@ -425,3 +425,25 @@ myGreet :: [a] -> [a] -> [a]
 
 *** Fix It:
 
+    1. Fixed module:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/fixit1.hs" src haskell
+
+    2. Sing the other song:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/fixit2.hs" src haskell
+
+    3. Fixed =arith3broken.hs=:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/arith3broken.hs" 
+
+*** Type-Kwon-Do:
+
+    1. Typecheck 1:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/typecheck1.hs" src haskell
+
+    2. Typecheck 2:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/typecheck2.hs" src haskell
+
+    3. Typecheck 3:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/typecheck3.hs" src haskell
+
+    4. Typecheck 4:
+       #+INCLUDE: "~/Source/hpffp/src/CH05/typecheck4.hs" src haskell
