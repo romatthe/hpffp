@@ -532,15 +532,18 @@ a' x y = x y
     ```
 
 3.  Fixed `arith3broken.hs`:  
-    module Arith3Broken where  
     
-    main :: IO()  
-    main = do  
-      print (1 + 2)         &#x2013; Should be enclosed in brackets or use \`$\`  
-      print 10              &#x2013; Should use \`print\` or \`putStrLn $ show 10\`  
-      print (negate (-1))   &#x2013; Should enclose \`-1\` in brackets  
-      print ((+) 0 blah)  
+    ```haskell
+    module Arith3Broken where
+    
+    main :: IO()
+    main = do
+      print (1 + 2)         -- Should be enclosed in brackets or use `$`
+      print 10              -- Should use `print` or `putStrLn $ show 10`
+      print (negate (-1))   -- Should enclose `-1` in brackets
+      print ((+) 0 blah)
       where blah = negate 1
+    ```
 
 ### Type-Kwon-Do:
 
@@ -603,5 +606,5 @@ a' x y = x y
     module TypeCheck4 where
     
     munge :: (x -> y) -> (y -> (w, z)) -> x -> w
-    munge fx fy x = fst $ (fy .fx) x
+    munge fx fy x = fst $ (fy . fx) x
     ```

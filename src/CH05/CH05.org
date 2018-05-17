@@ -432,7 +432,7 @@ myGreet :: [a] -> [a] -> [a]
        #+INCLUDE: "~/Source/hpffp/src/CH05/fixit2.hs" src haskell
 
     3. Fixed =arith3broken.hs=:
-       #+INCLUDE: "~/Source/hpffp/src/CH05/arith3broken.hs" 
+       #+INCLUDE: "~/Source/hpffp/src/CH05/arith3broken.hs" src haskell 
 
 *** Type-Kwon-Do:
 
