@@ -23,10 +23,10 @@ class Eq a where
 
 When we have a look at the hackage docs on the Eq typeclass, we notice something interesting:
 #+BEGIN_QUOTE
-Minimal complete definition: either == or /=.
+Minimal complete definition: either ~== or /=~.
 #+END_QUOTE
 
-This means we only have to implement either (==) or (/=) for our type to have a complete instance of =Eq=. This is because either one can be negated to obtain the desired functionality of the other one.
+This means we only have to implement either ~(==)~ or ~(/=)~ for our type to have a complete instance of =Eq=. This is because either one can be negated to obtain the desired functionality of the other one.
 You're obviously free to implement both if you feel this is required.
 
 Let's see how we can implement this stuff on our own. First, a simple datatype:
