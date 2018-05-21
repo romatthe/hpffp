@@ -17,7 +17,7 @@ Prelude> bindExp 9001
 #+END_SRC
 
 The definition of x that is innermost in the code (where the function name at the left margin is the outside) takes precedence because Haskell is lexically scoped.
-Lexical scoping means that resolving the value for a named entity depends on the location in the code and the lexical context, for example in let and where clauses.
+Lexical scoping means that resolving the value for a named entity depends on the location in the code and tOld Newshe lexical context, for example in let and where clauses.
 #+BEGIN_SRC haskell
 bindExp :: Integer -> String
 bindExp x = let x = 10
@@ -159,8 +159,141 @@ pal x =
   where y = xs == reverse xs
 #+END_SRC
 
-* Exercises
+** Guards
 
+Guard syntax allows us to write compact functions that allow for two or more possible outcomes depending on the truth of the conditions.
+For example, we can write the following functions:
+#+BEGIN_SRC haskell
+myAbs :: Integer -> Integer
+myAbs x = if x < 0 then (-x) else x
+#+END_SRC
+as:
+#+BEGIN_SRC haskell
+myAbs :: Integer -> Integer
+myAbs x
+  | x < 0     = (-x)
+  | otherwise = x
+#+END_SRC
+
+Let's look at the structure of this piece of code:
+#+BEGIN_SRC haskell
+  myAbs :: Integer -> Integer
+  myAbs x
+-- [1] [2]
+    | x < 0     = (-x)
+-- [3] [4]     [5] [6]
+    | otherwise = x
+-- [7]   [8]  [9][10]
+#+END_SRC
+
+  1. The name of our function, myAbs still comes first.
+  2. There is one parameter named x.
+  3. Here’s where it gets different. Rather than an = immediately after the introduction of any parameter(s), we’re starting a new line and using the pipe | to begin a guard case.
+  4. This is the expression we’re using to test to see if this branch should be evaluated or not. The guard case expression between the | and = must evaluate to Bool.
+  5. The = denotes that we’re declaring what expression to return should our x < 0 be True.
+  6. Then after the = we have the expression (-x) which will be returned if x < 0.
+  7. Another new line and a | to begin a new guard case.
+  8. otherwise is another name for True, used here as a fallback case in case x < 0 was False.
+  9. Another = to begin declaring the expression to return if we hit the otherwise case.
+  10. We kick x back out if it wasn’t less than 0.
+
+Another example:
+#+BEGIN_SRC haskell
+bloodNa :: Integer -> String
+bloodNa x
+  | x < 135   = "too low"
+  | x > 145   = "too high"
+  | otherwise = "just right"
+#+END_SRC
+
+We can use different kinds of expressions in the guard blocks, as long as they evaluate to a =Bool= value.
+Remember, =otherwise= is just an alias for =True=.
+
+We can also include =where= clauses here:
+#+BEGIN_SRC haskell
+avgGrade :: (Fractional a, Ord a) => a -> Char
+avgGrade x
+  | y >= 0.9  = 'A'
+  | y >= 0.8  = 'B'
+  | y >= 0.7  = 'C'
+  | y >= 0.59 = 'D'
+  | y <  0.59 = 'F'
+where y = x / 100
+#+END_SRC
+
+** Function Composition
+
+Let's look at the type signature of the composition operator =(.)=:
+#+BEGIN_SRC haskell
+(.) :: (b -> c) -> (a -> b) -> a -> c
+--       [1]         [2]      [3]  [4]
+#+END_SRC
+
+  1. is a function from b to c, passed as an argument (thus the parentheses).
+  2. is a function from a to b.
+  3. is a value of type a, the same as [2] expects as an argument.
+  4. is a value of type c, the same as [1] returns as a result. 
+
+Then with the addition of one set of parentheses:
+#+BEGIN_SRC haskell
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+--       [1]         [2]         [3]
+#+END_SRC
+
+In English:
+1. given a function b to c
+2. given a function a to b
+3. return a function a to c.
+
+Plainly, functional composition looks like this: ~(f . g) x = f (g x)~
+
+Some examples:
+#+BEGIN_SRC haskell
+Prelude> negate . sum $ [1, 2, 3, 4, 5]
+-15
+#+END_SRC
+Which is the same as
+#+BEGIN_SRC haskell
+Prelude> (negate . sum) [1, 2, 3, 4, 5]
+#+END_SRC
+
+** Pointfree Style:
+
+Pointfree refers to a style of composing functions without specifying their arguments. 
+The “point” in “pointfree” refers to the arguments, not (as it may seem) to the function composition operator.
+
+Here's an example:
+#+BEGIN_SRC haskell
+-- Pointful notation
+f x = negate . sum $ x
+
+-- Pointfree notation
+f = negate . sum
+#+END_SRC
+
+Another one, slightly trickier:
+#+BEGIN_SRC haskell
+f = length . filter (== 'a')
+#+END_SRC
+
+Here's some more:
+#+BEGIN_SRC haskell
+-- Pointful
+add :: Int -> Int -> Int
+add x y = x + y
+-- Pointfree
+addPF :: Int -> Int -> Int
+addPF = (+)
+
+-- Pointful
+addOne :: Int -> Int
+addOne = \x -> x + 1
+-- Pointfree
+addOnePF :: Int -> Int
+addOnePF = (+1)
+#+END_SRC
+
+* Exercises
 ** Exercise 1: Grab Bag
 
    1. Which of these are equivalent?
@@ -168,10 +301,10 @@ pal x =
       b) ~mTh x y = \z -> x * y * z~
       c) ~mTh x = \y -> \z -> x * y * z~
       d) ~mTh = \x -> \y -> \z -> x * y * z~
-      => =a=, =b=, =c= and =d= are equivalent
+      -> =a=, =b=, =c= and =d= are equivalent
 
    2. The type of =mTh= (above) is ~Num a => a -> a -> a -> a~. Which is the type of =mTh 3=?
-      => =d=, ~Num a => a -> a -> a~
+      -> =d=, ~Num a => a -> a -> a~
 
    3. Anonymous syntax rewrite:
       a) ~where f = \n -> n + 1~
@@ -245,3 +378,67 @@ What is the result of the following?
 
   11. ~oneIsTwo 3~
       Result: ~23~
+
+** Exercise 5: Guard Duty
+
+   1. Putting =otherwise= as the top-most guard makes the function evaluate to ='F'= every time.
+   
+   2. This will, of course, typecheck, but the results will be different. The first guard to be evaluated to =True= will continue, so order obviously matters.
+   
+   3. The following function:
+      #+BEGIN_SRC haskell
+      pal xs
+          | xs == reverse xs = True
+          | otherwise        = False
+      #+END_SRC
+      => b) returns ~True~ when ~xs~ is a palindrome.
+
+   4. The argument =xs= needs to be able to be applied to the =reverse= function. This requires the argument to be of type ~xs :: Eq a => [a]~.
+
+   5. The type of the function is ~pal :: Eq a => [a] -> Bool~.
+
+   6. The following functions:
+      #+BEGIN_SRC haskell
+      numbers x
+        | x < 0  = -1
+        | x == 0 = 0
+        | x > 0  = 1
+      #+END_SRC
+      => c) returns an indication of whether its argument is a positive or negative number or zero
+
+   7. The type of argument =x= is ~(Num a, Ord a) => a~
+
+   8. The type of the function =numbers= is ~numbers :: (Num a, Ord a, Num b) => a -> b~
+
+** Exercise 6: Chapter Summary
+
+*** Multiple Choices
+
+    1. A polymorphic function:
+       => d) may resolve to values of different types, depending on the inputs
+
+    2. Two functions named =f= and =g= have types ~Char -> String~ and ~String -> [String]~ respectively. The composed function ~g . f~ has the type:
+       => b) ~Char -> [String]~
+
+    3. A function =f= has the type ~Ord a => a -> a -> Bool~ and we apply it to one numeric value. What is the type now?
+       => d) ~(Ord a, Num a) => a -> Bool~
+
+    4. ~A function with the type (a -> b) -> c~
+       => b) is a higher-order function
+
+    5. Given the following definition of =f=, what is the type of ~f True~?
+       => a) ~f True :: Bool~
+
+*** Let's Write Code
+
+    1. Exercise 1:
+       #+INCLUDE: "~/Source/hpffp/src/CH07/write1.hs" src haskell
+
+    2. Exercise 2:
+       #+INCLUDE: "~/Source/hpffp/src/CH07/write2.hs" src haskell
+
+    3. Exercise 3:
+       #+INCLUDE: "~/Source/hpffp/src/CH07/write3.hs" src haskell
+
+    4. Exercise 4:
+       #+INCLUDE: "~/Source/hpffp/src/CH07/write4.hs" src haskell
