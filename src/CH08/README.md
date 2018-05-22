@@ -30,12 +30,11 @@ The two main varieties of bottom are computations that failed with an error or t
 In logic, ⊥ corresponds to false.  
 
 For example:  
-\#+BEGIN<sub>SRC</sub> haskell  
-Prelude> let x = x in x  
 
-### Exception: <a id="org45b4a22"></a>
-
-\#+END<sub>SRC</sub>  
+```haskell
+Prelude> let x = x in x
+  Exception: <<loop>>
+```
 
 # Exercises
 
@@ -56,10 +55,10 @@ applyTimes 5 (+1) 5
 ### Review of Types
 
 1.  What is the type of `[[True, False], [True, True], [False, True]]`?  
-    => d) `[[Bool]]`
+    Answer: d) `[[Bool]]`
 
 2.  Which of the following has the same type as `[[True, False], [True, True], [False, True]]`?  
-    `> b) ~[[3 =` 3], [6 > 5], [3 < 4]]~
+    Answer: b) `[[3 == 3], [6 > 5], [3 < 4]]`
 
 3.  For following function, what is true?  
     
@@ -68,9 +67,9 @@ applyTimes 5 (+1) 5
     func x y = x ++ y
     ```
     
-    => d) All of the above
+    Answer: d) All of the above
 
-4.  => b) `func "Hello" "World"`
+4.  Answer: b) `func "Hello" "World"`
 
 ### Reviewing Currying
 
@@ -132,15 +131,14 @@ module DividedBy where
 
 data DividedResult = Result Integer
                    | DividedByZero
+                   deriving (Show)
 
 dividedBy :: Integral a => a -> a -> DividedResult
 dividedBy numbr denom
-  | numbr == 0           = DividedByZero
-  | sigdenom == signumbr = Result r
-  | otherwise            = Result (negate r)
+  | numbr == 0                   = DividedByZero
+  | signum denom == signum numbr = Result r
+  | otherwise                    = Result (negate r)
   where
-    sigdenom = signum denom
-    signumbr = signum numbr
     r = go (abs numbr) (abs denom) 0
     go n d count
          | abs n < d = count
@@ -160,7 +158,7 @@ mac n
 
 ### Numbers Into Words
 
-```haskell
+```haskel
 module WordNumber where
 
 import Data.List (intercalate)
