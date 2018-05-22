@@ -1,0 +1,116 @@
+#+TITLE: Chapter 8: Recursion
+#+OPTIONS: toc:nil \n:t
+
+* Notes
+
+** Recursion
+
+Recursion is defining a function in terms of itself via self-referential expressions.
+
+Classic example - factorial:
+#+BEGIN_SRC haskell
+factorial :: Integer -> Integer
+factorial 0 = 1
+factorial n = n * factorial (n - 1)
+#+END_SRC
+
+Another classic example - fibonacci numbers:
+#+BEGIN_SRC haskell
+fibonacci :: Integral a => a -> a
+fibonacci 0 = 0
+fibonacci 1 = 1
+fibonacci x =
+  fibonacci (x - 1) + fibonacci (x - 2)  
+#+END_SRC
+
+** Bottom
+
+⊥ or bottom is a term used in Haskell to refer to computations that do not successfully result in a value. 
+The two main varieties of bottom are computations that failed with an error or those that failed to terminate.
+In logic, ⊥ corresponds to false.
+
+For example:
+#+BEGIN_SRC haskell
+Prelude> let x = x in x
+*** Exception: <<loop>>
+#+END_SRC
+
+* Exercises
+
+** Exercise 1: Intermissions
+
+   #+BEGIN_SRC haskell
+   applyTimes 5 (+1) 5
+   (+1) $ applyTimes 4 (+1) 5
+   (+1) $ (+1) $ applyTimes 3 (+1) 5
+   (+1) $ (+1) $ (+1) $ applyTimes 2 (+1) 5
+   (+1) $ (+1) $ (+1) $ (+1) $ applyTimes 1 (+1) 5
+   (+1) $ (+1) $ (+1) $ (+1) $ (+1) $ 5
+   (+1) . (+1) . (+1) . (+1) . (+1) $ 5
+   #+END_SRC
+
+** Exercise 2: Chapter Summary
+
+*** Review of Types
+    
+    1. What is the type of ~[[True, False], [True, True], [False, True]]~?
+       => d) ~[[Bool]]~
+
+    2. Which of the following has the same type as ~[[True, False], [True, True], [False, True]]~?
+       => b) ~[[3 == 3], [6 > 5], [3 < 4]]~
+
+    3. For following function, what is true?
+       #+BEGIN_SRC haskell
+       func :: [a] -> [a] -> [a]
+       func x y = x ++ y
+       #+END_SRC
+       => d) All of the above
+
+    4. => b) ~func "Hello" "World"~
+
+*** Reviewing Currying
+
+    1. "woops mrow woohoo!"
+
+    2. "1 mrow haha"
+
+    3. "woops mrow 2 haha"
+
+    4. "woops mrow blue mrow haha"
+
+    5. "pink mrow haha mrow green mrow woops mrow blue"
+
+    6. "are mrow Pugs mrow awesome"
+
+*** Recursion
+
+    1. dividedBy 15 2
+       #+BEGIN_SRC haskell
+       = go 15 2 0
+       = go 13 2 1
+       = go 11 2 2
+       = go  9 2 3
+       = go  7 2 4
+       = go  5 2 5
+       = go  3 2 6
+       = go  1 2 7
+       = (7, 1)
+       #+END_SRC
+
+    2. =sumAll= function:
+       #+INCLUDE: "~/Source/hpffp/src/CH08/sumall.hs" src haskell
+
+    3. Recursive Sum:
+       #+INCLUDE: "~/Source/hpffp/src/CH08/mult.hs"  src haskell
+       
+*** Fixing DividedBy
+    
+    #+INCLUDE: "~/Source/hpffp/src/CH08/dividedby.hs" src haskell
+
+*** McCarthy 91 Function
+
+   #+INCLUDE: "~/Source/hpffp/src/CH08/mac91.hs" src haskell
+
+*** Numbers Into Words   
+
+    #+INCLUDE: "~/Source/hpffp/src/CH08/words.hs" src haskell
